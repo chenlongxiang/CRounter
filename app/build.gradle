@@ -40,7 +40,7 @@ dependencies {
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation project(path: ':crouter-annotation')
     implementation project(path: ':crouter-init')
-    implementation project(path: ':crouter-module-test')
+//    implementation project(path: ':crouter-module-test')
     implementation project(path: ':crouter-api')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
