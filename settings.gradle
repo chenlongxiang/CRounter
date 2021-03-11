@@ -1,4 +1,4 @@
-include ':crouter-module-test'
+//include ':crouter-module-test'
 include ':crouter-init'
 include ':crouter-api'
 include ':crouter-annotation'
