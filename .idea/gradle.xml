@@ -12,9 +12,11 @@
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
+            <option value="$PROJECT_DIR$/app" />
             <option value="$PROJECT_DIR$/crouter-annotation" />
             <option value="$PROJECT_DIR$/crouter-api" />
             <option value="$PROJECT_DIR$/crouter-init" />
+            <option value="$PROJECT_DIR$/crouter-module-test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
