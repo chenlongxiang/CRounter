@@ -5,6 +5,7 @@ import android.content.Context;
 import android.util.Log;
 
 import com.chenlx.crouter_annotation.ModuleFunction;
+//import com.chenlx.crouter_annotation.interceptor.Interceptor;
 import com.chenlx.crouter_init.utils.ClassUtils;
 import com.chenlx.crouter_init.utils.DebugUtils;
 import com.chenlx.crouter_init.utils.PackageUtils;
@@ -23,6 +24,8 @@ public class CRouter {
 
     public static Map<String, Object> allInstancesContainer = new HashMap<>();
     public static Map<String, Map<String, Object>> instancesByGroupContainer = new HashMap<>();
+    public static Map<String, Object> allInterceptorContainer = new HashMap<>();
+
 
     public static Map<String, Object> getAllInstancesContainer() {
         return allInstancesContainer;
@@ -33,9 +36,14 @@ public class CRouter {
     }
 
 
+    public static Map<String, Object> getAllInterceptorContainer() {
+        return allInterceptorContainer;
+    }
+
     static {
         allInstancesContainer.clear();
         instancesByGroupContainer.clear();
+        allInterceptorContainer.clear();
     }
 
     public static final String TAG = "CRouter_init";
@@ -127,50 +135,60 @@ public class CRouter {
                  * 判断A是否是B的父类
                  */
 
-                if (!c.isAnnotationPresent(ModuleFunction.class)) {
+                if (c.isAnnotationPresent(ModuleFunction.class)) {
 
-                    Log.i(TAG, " no ModuleFunction:");
-                    continue;
-                }
+                    Class[] classes = c.getInterfaces();
+                    if (classes != null) {
+                        for (Class i : classes) {
+                            if (apiMap.contains(i.getName())) {
+                                Log.i(TAG, "getInterfaces contains:" + className);
+                                /**
+                                 * TODO
+                                 * 初始化以及保存
+                                 */
+                                Object object = c.getConstructor().newInstance();
 
+                                allInstancesContainer.put(i.getName(), object);
 
-                Class[] classes = c.getInterfaces();
-                if (classes != null) {
-                    for (Class i : classes) {
-                        if (apiMap.contains(i.getName())) {
-                            Log.i(TAG, "getInterfaces contains:" + className);
-                            /**
-                             * TODO
-                             * 初始化以及保存
-                             */
-                            Object object = c.getConstructor().newInstance();
-
-                            allInstancesContainer.put(i.getName(), object);
-
-                            String pName = c.getPackage().getName();
+                                String pName = c.getPackage().getName();
 
 
-                            /**
-                             * 针对
-                             */
-                            Map<String, Object> containeOfModule;
-                            if (instancesByGroupContainer.containsKey(pName)) {
+                                /**
+                                 * 针对
+                                 */
+                                Map<String, Object> containeOfModule;
+                                if (instancesByGroupContainer.containsKey(pName)) {
 
-                                containeOfModule = instancesByGroupContainer.get(pName);
+                                    containeOfModule = instancesByGroupContainer.get(pName);
 
-                            } else {
-                                containeOfModule = new HashMap<>();
+                                } else {
+                                    containeOfModule = new HashMap<>();
+                                }
+
+
+                                containeOfModule.put(i.getName(), object);
+
+                                instancesByGroupContainer.put(pName, containeOfModule);
+
+
                             }
-
-
-                            containeOfModule.put(i.getName(), object);
-
-                            instancesByGroupContainer.put(pName, containeOfModule);
-
-
                         }
                     }
+
+
                 }
+
+//                if (c.isAnnotationPresent(Interceptor.class)) {
+//
+//
+//                    /**
+//                     * TODO
+//                     * 初始化以及保存
+//                     */
+//                    Object object = c.getConstructor().newInstance();
+//                    allInterceptorContainer.put(c.getName(), object);
+//
+//                }
 
 
             } catch (Exception e) {
