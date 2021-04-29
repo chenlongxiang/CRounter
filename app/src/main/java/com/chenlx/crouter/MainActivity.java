@@ -24,11 +24,11 @@ public class MainActivity extends AppCompatActivity {
         tv = findViewById(R.id.tv_tip);
 
 
-//        try {
-//            $.addOrReplaceInstance(new MainMain(), IModuleMain.class);
-//        } catch (Exception e) {
-//            e.printStackTrace();
-//        }
+        try {
+            $.addOrReplaceInstance(new MainMain(), IModuleMain.class);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         tv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

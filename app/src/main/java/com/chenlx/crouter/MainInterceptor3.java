@@ -5,12 +5,12 @@ import android.util.Log;
 
 import com.chenlx.crouter_api.Interceptor;
 
-public class MainInterceptor extends Interceptor {
+public class MainInterceptor3 extends Interceptor {
     @Override
     public boolean interceptor() {
 
+        Log.i("MainInterceptor", "3");
 
-        Log.i("MainInterceptor", "1");
         return true;
     }
 }

@@ -5,7 +5,8 @@ import android.util.Log;
 import com.chenlx.crouter_annotation.ModuleFunction;
 import com.chenlx.crouter_api.IModuleMain;
 
-@ModuleFunction(interceptor = {MainInterceptor.class})
+@ModuleFunction(interceptor = {MainInterceptor.class, MainInterceptor2.class,
+        MainInterceptor3.class})
 public class MainMain implements IModuleMain {
 
 
