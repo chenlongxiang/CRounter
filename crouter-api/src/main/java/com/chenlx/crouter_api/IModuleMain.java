@@ -5,4 +5,6 @@ public interface IModuleMain {
 
     void callModule(String tag);
 
+    void intercepter(String s);
+
 }

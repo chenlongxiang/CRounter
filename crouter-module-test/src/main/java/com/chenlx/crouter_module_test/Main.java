@@ -13,4 +13,11 @@ public class Main implements IModuleMain {
 
         Log.i("com.chenlx.couter_module_test", "callModule");
     }
+
+    @Override
+    public void intercepter(String s) {
+
+    }
+
+
 }

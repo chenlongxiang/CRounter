@@ -5,7 +5,7 @@ import android.util.Log;
 import com.chenlx.crouter_annotation.ModuleFunction;
 import com.chenlx.crouter_api.IModuleMain;
 
-@ModuleFunction
+@ModuleFunction(interceptor = {MainInterceptor.class})
 public class MainMain implements IModuleMain {
 
 
@@ -15,4 +15,12 @@ public class MainMain implements IModuleMain {
         Log.i("com.chenlx.couter_module_test", "new  callModule");
 
     }
+
+    @Override
+    public void intercepter(String s) {
+        Log.i("com.chenlx.couter_module_test", "intercepter  " + s);
+
+    }
+
+
 }

@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.Log;
 
 import com.chenlx.crouter_annotation.ModuleFunction;
-//import com.chenlx.crouter_annotation.interceptor.Interceptor;
 import com.chenlx.crouter_init.utils.ClassUtils;
 import com.chenlx.crouter_init.utils.DebugUtils;
 import com.chenlx.crouter_init.utils.PackageUtils;
@@ -19,13 +18,20 @@ import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_CACHE_KEY;
 import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_KEY_API_MAP;
 import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_KEY_MAP;
 
+//import com.chenlx.crouter_annotation.interceptor.Interceptor;
+
 public class CRouter {
 
 
     public static Map<String, Object> allInstancesContainer = new HashMap<>();
     public static Map<String, Map<String, Object>> instancesByGroupContainer = new HashMap<>();
     public static Map<String, Object> allInterceptorContainer = new HashMap<>();
+    public static Map<String, Class[]> specificInterceptors = new HashMap<>();
 
+
+    public static Map<String, Class[]> getSpecificInterceptors() {
+        return specificInterceptors;
+    }
 
     public static Map<String, Object> getAllInstancesContainer() {
         return allInstancesContainer;
@@ -36,7 +42,7 @@ public class CRouter {
     }
 
 
-    public static Map<String, Object> getAllInterceptorContainer() {
+    public static Map<String, Object> getInterceptorContainer() {
         return allInterceptorContainer;
     }
 
@@ -44,6 +50,7 @@ public class CRouter {
         allInstancesContainer.clear();
         instancesByGroupContainer.clear();
         allInterceptorContainer.clear();
+        specificInterceptors.clear();
     }
 
     public static final String TAG = "CRouter_init";
@@ -148,6 +155,55 @@ public class CRouter {
                                  */
                                 Object object = c.getConstructor().newInstance();
 
+
+                                /**
+                                 * 如果有通过注解添加拦截器，那么在此设置。
+                                 */
+
+                                ModuleFunction moduleFunction =
+                                        (ModuleFunction) c.getAnnotation(ModuleFunction.class);
+                                Class[] interceptors = moduleFunction.interceptor();
+
+                                Log.i(TAG, "interceptor :" + interceptors);
+
+                                if (interceptors != null) {
+
+
+                                    /**
+                                     * 另外保存一个映射关系中
+                                     *
+                                     * i-> class[]
+                                     */
+
+
+                                    for (Class cl : interceptors) {
+
+                                        /**
+                                         * 保存关系
+                                         */
+
+
+                                        if (!getInterceptorContainer().containsKey(cl.getName())) {
+
+                                            Object io = cl.getConstructor().newInstance();
+                                            getInterceptorContainer().put(cl.getName(), io);
+                                            Log.i(TAG, "interceptor :" + specificInterceptors);
+
+
+                                            Log.i(TAG, "interceptor :" + cl.getName());
+
+
+                                        }
+                                    }
+
+
+                                    specificInterceptors.put(i.getName(), interceptors);
+                                    Log.i(TAG, "interceptor :" + specificInterceptors);
+
+
+                                }
+
+
                                 allInstancesContainer.put(i.getName(), object);
 
                                 String pName = c.getPackage().getName();
@@ -177,18 +233,6 @@ public class CRouter {
 
 
                 }
-
-//                if (c.isAnnotationPresent(Interceptor.class)) {
-//
-//
-//                    /**
-//                     * TODO
-//                     * 初始化以及保存
-//                     */
-//                    Object object = c.getConstructor().newInstance();
-//                    allInterceptorContainer.put(c.getName(), object);
-//
-//                }
 
 
             } catch (Exception e) {

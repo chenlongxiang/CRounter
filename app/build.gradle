@@ -6,12 +6,15 @@ android {
 
     defaultConfig {
         applicationId "com.chenlx.crouter"
-        minSdkVersion 28
+        minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+        buildConfigField "String", "EXCLUDE_PACKAGE", project.excludePackage
+        buildConfigField "String", "API_PATH", project.apiPath
 
 
     }
@@ -33,7 +36,6 @@ android {
 }
 
 
-
 dependencies {
     implementation fileTree(dir: "libs", include: ["*.jar"])
     implementation 'androidx.appcompat:appcompat:1.1.0'
@@ -45,7 +47,6 @@ dependencies {
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 
 
 }

@@ -1,5 +1,6 @@
 package com.chenlx.crouter_init;
 
+import com.chenlx.crouter_api.Interceptor;
 import com.chenlx.crouter_init.proxy.ProxyManager;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class $ {
 
         Object object = CRouter.getAllInstancesContainer().get(claz.getName());
 
-        Object objectP = ProxyManager.ProxyFactory.createProxy(object);
+        Object objectP = ProxyManager.ProxyFactory.createProxy(object, claz.getName());
 
         return (T) objectP;
 
@@ -25,7 +26,7 @@ public class $ {
         Object object = CRouter.getInstancesByGroupContainer().get(modulePath).get(claz.getName());
 
         Object objectP = ProxyManager.ProxyFactory.createProxy(
-                object);
+                object, claz.getName());
         return (T) objectP;
 
     }
@@ -57,4 +58,15 @@ public class $ {
 
     }
 
+    public static Interceptor findInterceptor(String clasName) {
+
+        return (Interceptor) CRouter.getInterceptorContainer().get(clasName);
+
+    }
+
+    public static Class[] findSpecificInterceptor(String clasName) {
+
+        return CRouter.getSpecificInterceptors().get(clasName);
+
+    }
 }

@@ -27,38 +27,17 @@ public class ProxyManager {
      *       执行AfterAdvice的after（）
      * */
     public static class ProxyFactory {
-//        private Object targetObject;//目标对象
-//        private BeforeAdvice beforeAdvice;//前置增强
-//        private AfterAdvice afterAdvice;//后置增强
+
 
         //用来生成代理对象
-        public static <T> T createProxy(Object targetObject) {
+        public static <T> T createProxy(Object targetObject, String clasName) {
             /*
              * 1、给出三大参数
              * */
             ClassLoader loader = targetObject.getClass().getClassLoader();
             Class[] interfaces = targetObject.getClass().getInterfaces();
-//            InvocationHandler h = new InvocationHandler() {
-//                @Override
-//                public Object invoke(Object proxy, Method method, Object[] args) throws
-//                Throwable {
-//                    /*
-//                     * 在调用代理对象的方法时会执行这里的内容
-//                     * */
-//                    //执行前置增强
-////                    if (beforeAdvice != null) {
-////                        beforeAdvice.before();
-////                    }
-//                    T result = (T) method.invoke(targetObject, args);//执行目标对象的目标方法
-//                    //执行后置增强
-////                    if (afterAdvice != null) {
-////                        afterAdvice.after();
-////                    }
-//                    return result;
-//                }
-//            };
 
-            ProxyInvocationHandler h = new ProxyInvocationHandler(targetObject);
+            ProxyInvocationHandler h = new ProxyInvocationHandler(targetObject, clasName);
 
             //2、得到代理对象
             Object proxObject = Proxy.newProxyInstance(loader, interfaces, h);
@@ -72,7 +51,7 @@ public class ProxyManager {
 
         IModuleMain iModuleMain = $.find(IModuleMain.class);
         IModuleMain iModuleMainP = ProxyFactory.createProxy(
-                iModuleMain);
+                iModuleMain, IModuleMain.class.getName());
 
         iModuleMainP.callModule("ddd");
     }

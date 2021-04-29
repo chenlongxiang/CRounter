@@ -17,5 +17,7 @@ public @interface ModuleFunction {
 
     String name() default "";
 
+    Class[] interceptor() default void.class;
+
 
 }

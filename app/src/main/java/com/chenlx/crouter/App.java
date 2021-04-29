@@ -21,8 +21,8 @@ public class App extends Application {
              *防止多进程多次调用
              */
             if (!CRouter.isHasInit()) {
-                CRouter.init(this, getPackageName(), "com.chenlx.crouter_annotation", "com.chenlx" +
-                        ".crouter_api");
+                CRouter.init(this, getPackageName(), BuildConfig.EXCLUDE_PACKAGE,
+                        BuildConfig.API_PATH);
             }
         } catch (Exception e) {
             e.printStackTrace();
