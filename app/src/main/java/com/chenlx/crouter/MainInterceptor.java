@@ -1,8 +1,6 @@
 package com.chenlx.crouter;
 
 
-import android.util.Log;
-
 import com.chenlx.crouter_api.Interceptor;
 
 public class MainInterceptor extends Interceptor {
@@ -10,7 +8,9 @@ public class MainInterceptor extends Interceptor {
     public boolean interceptor() {
 
 
-        Log.i("MainInterceptor", "1");
-        return true;
+        String time = System.currentTimeMillis() + "";
+
+        String end = time.charAt(time.length() - 1) + "";
+        return Integer.parseInt(end) % 2 == 0;
     }
 }

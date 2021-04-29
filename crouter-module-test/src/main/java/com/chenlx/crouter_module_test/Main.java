@@ -1,5 +1,6 @@
 package com.chenlx.crouter_module_test;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.chenlx.crouter_annotation.ModuleFunction;
@@ -12,6 +13,11 @@ public class Main implements IModuleMain {
     public void callModule(String tag) {
 
         Log.i("com.chenlx.couter_module_test", "callModule");
+    }
+
+    @Override
+    public void startSecond(Context context, String tag) {
+
     }
 
     @Override

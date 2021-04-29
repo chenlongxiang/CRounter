@@ -1,10 +1,13 @@
 package com.chenlx.crouter_api;
 
 
-public interface IModuleMain {
+import android.content.Context;
+
+public interface IModuleMain extends BaseInterface {
 
     void callModule(String tag);
 
-    void intercepter(String s);
+    void startSecond(Context context, String tag);
+
 
 }

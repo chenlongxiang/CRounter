@@ -35,7 +35,11 @@ public class MainActivity extends AppCompatActivity {
 
                 IModuleMain iModuleMain = $.find(
                         IModuleMain.class);
-                iModuleMain.callModule("hhhhh");
+                iModuleMain.startSecond(MainActivity.this, "hhhhh");
+
+
+
+
             }
         });
     }
