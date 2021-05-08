@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
 
 
         try {
-            $.addOrReplaceInstance(new MainMain(), IModuleMain.class);
+            $.addOrReplaceInstance(new MainMain2(), IModuleMain.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -36,8 +36,6 @@ public class MainActivity extends AppCompatActivity {
                 IModuleMain iModuleMain = $.find(
                         IModuleMain.class);
                 iModuleMain.startSecond(MainActivity.this, "hhhhh");
-
-
 
 
             }

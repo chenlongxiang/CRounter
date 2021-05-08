@@ -17,6 +17,7 @@
             <option value="$PROJECT_DIR$/crouter-api" />
             <option value="$PROJECT_DIR$/crouter-init" />
             <option value="$PROJECT_DIR$/crouter-module-test" />
+            <option value="$PROJECT_DIR$/debug_test" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

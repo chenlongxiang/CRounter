@@ -36,6 +36,33 @@ public class ProxyManager {
              * */
             ClassLoader loader = targetObject.getClass().getClassLoader();
             Class[] interfaces = targetObject.getClass().getInterfaces();
+            if (interfaces == null || interfaces.length <= 0) {
+                try {
+                    interfaces = new Class[1];
+                    interfaces[0] = Class.forName(clasName);
+                } catch (ClassNotFoundException e) {
+                    e.printStackTrace();
+                }
+            } else {
+
+
+                boolean isContained = false;
+                for (Class c : interfaces) {
+
+                    if (clasName.equals(c.getName())) {
+                        isContained = true;
+                        break;
+                    }
+                }
+
+                if (!isContained) {
+                    try {
+                        interfaces[interfaces.length] = Class.forName(clasName);
+                    } catch (ClassNotFoundException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
 
             ProxyInvocationHandler h = new ProxyInvocationHandler(targetObject, clasName);
 

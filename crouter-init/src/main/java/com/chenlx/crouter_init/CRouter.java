@@ -18,14 +18,26 @@ import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_CACHE_KEY;
 import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_KEY_API_MAP;
 import static com.chenlx.crouter_init.utils.Constants.CROUTER_SP_KEY_MAP;
 
-//import com.chenlx.crouter_annotation.interceptor.Interceptor;
 
 public class CRouter {
 
 
+    /**
+     * 所有method 调用对象集合
+     */
     public static Map<String, Object> allInstancesContainer = new HashMap<>();
+    /**
+     * 根据模块名称 ，拆分的method调用对象集合
+     */
     public static Map<String, Map<String, Object>> instancesByGroupContainer = new HashMap<>();
+
+    /**
+     * 所有的拦截对象
+     */
     public static Map<String, Object> allInterceptorContainer = new HashMap<>();
+    /**
+     * 对应method调用对象的拦截器类名
+     */
     public static Map<String, Class[]> specificInterceptors = new HashMap<>();
 
 

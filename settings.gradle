@@ -1,6 +1,30 @@
-include ':crouter-module-test'
+def developer_project = ':debug_test'
+println("*************settings build*")
+
+StartParameter args = (StartParameter) properties.get('startParameter')
+
+def isReleaseBuild = false
+args.taskRequests.collect {
+    it.args.collect {
+        println("it  >" + it)
+        if (it.matches(/assemble*Release/)) {
+            isReleaseBuild = true
+            println 'start Release build...'
+        }
+    }
+}
+
+
+if (!isReleaseBuild) {
+    include developer_project
+}
+
+
 include ':crouter-init'
 include ':crouter-api'
 include ':crouter-annotation'
 include ':app'
+include ':crouter-module-test'
 rootProject.name = "CRouter"
+
+
